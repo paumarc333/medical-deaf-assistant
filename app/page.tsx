@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Avatar from "../components/Avatar";
+import QuickReplies from "../components/QuickReplies";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -24,12 +26,14 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
-      <h1 className="text-5xl font-bold mb-6 text-center">
+      <Avatar />
+
+      <h1 className="text-4xl font-bold mt-8 mb-3 text-center">
         Medical Deaf Assistant
       </h1>
 
-      <p className="text-gray-300 text-center max-w-xl mb-10">
-        Real-time medical subtitles for deaf people.
+      <p className="text-gray-300 text-center max-w-xl mb-8">
+        AI-first medical communication for deaf people.
       </p>
 
       <button
@@ -39,9 +43,12 @@ export default function Home() {
         Start Listening
       </button>
 
-      <div className="mt-10 text-2xl text-center max-w-2xl">
+      <div className="mt-10 text-2xl text-center max-w-2xl min-h-16">
         {text}
       </div>
+
+      <QuickReplies />
     </main>
   );
 }
+
