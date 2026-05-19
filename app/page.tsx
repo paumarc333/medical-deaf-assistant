@@ -25,72 +25,135 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-white flex">
-      <aside className="hidden md:flex w-72 border-r border-white/10 p-6 flex-col">
-        <h2 className="text-xl font-semibold mb-8">Medical Deaf</h2>
+    <main className="min-h-screen bg-[#050505] text-white overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#1f2937_0%,transparent_35%),radial-gradient(circle_at_bottom_right,#0f766e_0%,transparent_30%)] opacity-40" />
 
-        <p className="text-xs uppercase text-gray-500 mb-3">
-          Historial
-        </p>
-
-        <div className="space-y-3">
-          <div className="bg-white/10 rounded-2xl p-4">
-            <p className="font-medium">Urgencias</p>
-            <p className="text-sm text-gray-400">Dolor de barriga</p>
+      <div className="relative z-10 flex min-h-screen">
+        <aside className="hidden lg:flex w-80 border-r border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 flex-col">
+          <div className="mb-10">
+            <p className="text-sm text-gray-500">AI-first medical interpreter</p>
+            <h1 className="text-2xl font-semibold mt-1">Medical Deaf</h1>
           </div>
 
-          <div className="bg-white/5 rounded-2xl p-4">
-            <p className="font-medium">Dentista</p>
-            <p className="text-sm text-gray-400">Revisión general</p>
+          <button className="bg-white text-black rounded-2xl py-4 font-semibold mb-8">
+            + Nueva situación médica
+          </button>
+
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+            Historial
+          </p>
+
+          <div className="space-y-3">
+            {[
+              ["Urgencias", "Dolor de barriga", "Activo"],
+              ["Dentista", "Revisión general", "Cerrado"],
+              ["Médico", "Dolor de garganta", "Cerrado"],
+            ].map(([title, subtitle, status]) => (
+              <div
+                key={title}
+                className="rounded-3xl border border-white/10 bg-white/[0.04] p-4"
+              >
+                <div className="flex justify-between gap-3">
+                  <div>
+                    <p className="font-medium">{title}</p>
+                    <p className="text-sm text-gray-400 mt-1">{subtitle}</p>
+                  </div>
+                  <span className="text-xs text-emerald-300">{status}</span>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="bg-white/5 rounded-2xl p-4">
-            <p className="font-medium">Médico</p>
-            <p className="text-sm text-gray-400">Dolor de garganta</p>
-          </div>
-        </div>
-      </aside>
-
-      <section className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-4xl rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 md:p-12 shadow-2xl">
-          <div className="flex flex-col items-center">
-            <Avatar />
-
-            <h1 className="text-4xl md:text-6xl font-bold mt-8 text-center">
-              Medical Deaf Assistant
-            </h1>
-
-            <p className="text-gray-400 text-center max-w-xl mt-4">
-              AI-first medical communication for deaf people.
+          <div className="mt-auto rounded-3xl bg-white text-black p-5">
+            <p className="text-sm font-semibold">Soporte LSC 24/7</p>
+            <p className="text-sm text-black/60 mt-2">
+              Ayuda humana limitada para situaciones importantes.
             </p>
-
-            <button
-              onClick={startListening}
-              className="mt-8 bg-white text-black px-8 py-4 rounded-2xl text-lg font-semibold hover:scale-105 transition"
-            >
-              Start Listening
-            </button>
           </div>
+        </aside>
 
-          <div className="mt-10 grid md:grid-cols-2 gap-4">
-            <div className="rounded-3xl bg-black/40 border border-white/10 p-6 min-h-40">
-              <p className="text-sm text-gray-500 mb-3">MÉDICO HA DICHO</p>
-              <p className="text-2xl">
-                {text || "Esperando audio del médico..."}
-              </p>
+        <section className="flex-1 p-4 md:p-8 flex items-center justify-center">
+          <div className="w-full max-w-6xl grid lg:grid-cols-[1fr_420px] gap-6">
+            <div className="rounded-[2.5rem] border border-white/10 bg-white/[0.05] backdrop-blur-xl p-6 md:p-10 shadow-2xl">
+              <div className="flex flex-col items-center text-center">
+                <div className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm text-emerald-200 mb-8">
+                  Consulta médica en curso
+                </div>
+
+                <Avatar />
+
+                <h2 className="text-4xl md:text-7xl font-semibold tracking-tight mt-8">
+                  Entiende al médico.
+                </h2>
+
+                <p className="text-gray-400 max-w-2xl mt-5 text-lg">
+                  La IA escucha, simplifica y prepara la comunicación en lenguaje visual y signos.
+                </p>
+
+                <button
+                  onClick={startListening}
+                  className="mt-10 bg-white text-black px-10 py-5 rounded-3xl text-lg font-semibold hover:scale-[1.03] transition shadow-xl"
+                >
+                  Start Listening
+                </button>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4 mt-10">
+                <div className="rounded-3xl border border-white/10 bg-black/40 p-6 min-h-44">
+                  <p className="text-xs uppercase tracking-[0.25em] text-gray-500 mb-4">
+                    Médico ha dicho
+                  </p>
+                  <p className="text-2xl leading-snug">
+                    {text || "Esperando audio del médico..."}
+                  </p>
+                </div>
+
+                <div className="rounded-3xl bg-white text-black p-6 min-h-44">
+                  <p className="text-xs uppercase tracking-[0.25em] text-black/40 mb-4">
+                    Qué hacer ahora
+                  </p>
+                  <p className="text-2xl font-semibold leading-snug">
+                    Espera. La IA convertirá la explicación médica en pasos simples.
+                  </p>
+                </div>
+              </div>
+
+              <QuickReplies />
             </div>
 
-            <div className="rounded-3xl bg-white text-black p-6 min-h-40">
-              <p className="text-sm text-black/50 mb-3">QUÉ HACER AHORA</p>
-              <p className="text-2xl font-semibold">
-                Espera. Escucha. La IA te dará los siguientes pasos.
+            <aside className="rounded-[2.5rem] border border-white/10 bg-black/40 backdrop-blur-xl p-6 flex flex-col">
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+                Resumen visual
               </p>
-            </div>
-          </div>
 
-          <QuickReplies />
-        </div>
-      </section>
+              <div className="space-y-4">
+                <div className="rounded-3xl bg-white/[0.06] border border-white/10 p-5">
+                  <p className="text-gray-400 text-sm">Estado</p>
+                  <p className="text-2xl font-semibold mt-2">Escuchando consulta</p>
+                </div>
+
+                <div className="rounded-3xl bg-white/[0.06] border border-white/10 p-5">
+                  <p className="text-gray-400 text-sm">Prioridad</p>
+                  <p className="text-2xl font-semibold mt-2">Comprensión clara</p>
+                </div>
+
+                <div className="rounded-3xl bg-emerald-300/10 border border-emerald-300/20 p-5">
+                  <p className="text-emerald-200 text-sm">Próximo paso</p>
+                  <p className="text-2xl font-semibold mt-2">
+                    Mostrar instrucciones simples
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-auto pt-8">
+                <p className="text-gray-500 text-sm">
+                  Diseñado para reducir dependencia, ansiedad y confusión durante visitas médicas.
+                </p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
